@@ -1,64 +1,60 @@
 const phaseColorById = Object.fromEntries(
-  PHASES.map((phase) => [phase.id, phase.color]),
+	PHASES.map((phase) => [phase.id, phase.color]),
 );
 
+const TYPE_ICONS = {
+	portable: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>`,
+	hybrid: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="7" cy="12" r="1.6"/><circle cx="17" cy="12" r="1.6"/></svg>`,
+	home: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><circle cx="17" cy="12" r="1.6"/></svg>`,
+};
+
 function getTypeIcon(type) {
-  if (type === "portable") return "󰋘";
-  if (type === "hybrid") return "󰊖";
-  return "󰊗";
+	return TYPE_ICONS[type] || TYPE_ICONS.home;
 }
 
-function renderPhases() {
-  const phases = document.getElementById("phases");
-  if (!phases) return;
-
-  phases.innerHTML = PHASES.map(
-    (phase) => `
-      <span class="phase">
-        <span class="phase-name" style="color:${phase.color}">
-          ${phase.label}
-        </span>
-        <span class="phase-years" style="color:#F6F4EE">
-          [${phase.range}]
-        </span>
-      </span>
-    `,
-  ).join("");
-}
 
 function buildTimelineGradient() {
-  const counts = PHASES.map(
-    (phase) => CONSOLES.filter((console) => console.phase === phase.id).length,
-  );
+	const counts = PHASES.map(
+		(phase) => CONSOLES.filter((console) => console.phase === phase.id).length,
+	);
 
-  const total = counts.reduce((sum, count) => sum + count, 0);
+	const total = counts.reduce((sum, count) => sum + count, 0);
 
-  let position = 0;
-  const stops = [];
+	let position = 0;
+	const stops = [];
 
-  PHASES.forEach((phase, index) => {
-    const start = (position / total) * 100;
-    position += counts[index];
-    const end = (position / total) * 100;
+	PHASES.forEach((phase, index) => {
+		const start = (position / total) * 100;
+		position += counts[index];
+		const end = (position / total) * 100;
 
-    stops.push(`${phase.color} ${start}%`, `${phase.color} ${end}%`);
-  });
+		stops.push(`${phase.color} ${start}%`, `${phase.color} ${end}%`);
+	});
 
-  return `linear-gradient(to bottom, ${stops.join(", ")})`;
+	return `linear-gradient(to bottom, ${stops.join(", ")})`;
+}
+
+function renderPhaseDivider(phase) {
+	return `
+    <div class="phase-divider" style="--phase-color:${phase.color}">
+      <span class="phase-divider-label">${phase.label}</span>
+      <span class="phase-divider-range">[${phase.range}]</span>
+    </div>
+  `;
 }
 
 function renderTimelineItem(item, index) {
-  const color = phaseColorById[item.phase];
-  const side = index % 2 === 0 ? "right" : "left";
+	const color = phaseColorById[item.phase];
+	const side = index % 2 === 0 ? "right" : "left";
 
-  const highlights = item.highlights
-    .map(
-      (highlight) =>
-        `<li><span class="bullet" style="background:${color}"></span>${highlight}</li>`,
-    )
-    .join("");
+	const highlights = item.highlights
+		.map(
+			(highlight) =>
+				`<li><span class="bullet" style="background:${color}"></span>${highlight}</li>`,
+		)
+		.join("");
 
-  return `
+	return `
     <div class="timeline-item">
       <span class="timeline-dot" style="background:${color}"></span>
 
@@ -113,46 +109,56 @@ function renderTimelineItem(item, index) {
 }
 
 function renderTimeline() {
-  const timelineLine = document.getElementById("timeline-line");
-  const timelineItems = document.getElementById("timeline-items");
+	const timelineLine = document.getElementById("timeline-line");
+	const timelineItems = document.getElementById("timeline-items");
 
-  if (!timelineLine || !timelineItems) return;
+	if (!timelineLine || !timelineItems) return;
 
-  timelineLine.style.background = buildTimelineGradient();
+	timelineLine.style.background = buildTimelineGradient();
 
-  timelineItems.innerHTML = CONSOLES.map((item, index) =>
-    renderTimelineItem(item, index),
-  ).join("");
+	const phaseById = Object.fromEntries(
+		PHASES.map((phase) => [phase.id, phase]),
+	);
+	const seenPhases = new Set();
+
+	timelineItems.innerHTML = CONSOLES.map((item, index) => {
+		let divider = "";
+		if (!seenPhases.has(item.phase)) {
+			seenPhases.add(item.phase);
+			divider = renderPhaseDivider(phaseById[item.phase]);
+		}
+		return divider + renderTimelineItem(item, index);
+	}).join("");
 }
 
 function setupRevealAnimation() {
-  const cards = document.querySelectorAll("[data-reveal]");
+	const cards = document.querySelectorAll("[data-reveal]");
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    cards.forEach((card) => card.classList.add("visible"));
-    return;
-  }
+	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+		cards.forEach((card) => card.classList.add("visible"));
+		return;
+	}
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (!entry.isIntersecting) return;
 
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    {
-      threshold: 0.2,
-      rootMargin: "0px 0px -60px 0px",
-    },
-  );
+				entry.target.classList.add("visible");
+				observer.unobserve(entry.target);
+			});
+		},
+		{
+			threshold: 0.2,
+			rootMargin: "0px 0px -60px 0px",
+		},
+	);
 
-  cards.forEach((card) => observer.observe(card));
+	cards.forEach((card) => observer.observe(card));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderPhases();
-  renderTimeline();
-  setupRevealAnimation();
+	// renderPhases();
+	renderTimeline();
+	setupRevealAnimation();
 });

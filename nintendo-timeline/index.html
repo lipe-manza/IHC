@@ -1,109 +1,95 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Nintendo Timeline — Evolução dos Consoles</title>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<title>Nintendo Timeline — Evolução dos Consoles</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=STIX+Two+Math&display=swap"
+		rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
+	<link rel="stylesheet" href="style.css" />
+</head>
 
-  <body>
-    <header class="hero">
-      <div class="container">
-        <p class="eyebrow">1977 — 2025</p>
+<body>
+	<header class="hero">
+		<div class="container">
+			<p class="eyebrow">1977 — 2025</p>
 
-        <h1>
-          Nintendo
-          <span class="accent">Timeline</span>
-        </h1>
-      </div>
-    </header>
+			<h1>
+				Nintendo
+				<span class="accent">Timeline</span>
+			</h1>
+		</div>
+	</header>
 
-    <main>
-      <section class="intro" aria-labelledby="intro-title">
-        <div class="container">
-          <h2 id="intro-title" class="sr-only">
-            Evolução dos consoles Nintendo
-          </h2>
+	<main>
+		<section class="intro" aria-labelledby="intro-title">
+			<div class="container">
+				<h2 id="intro-title" class="section-title">
+					<span>Evolução dos consoles Nintendo</span>
+				</h2>
 
-          <p class="intro-text">
-            Ao longo de quase cinco décadas, a Nintendo transformou a maneira
-            como jogamos. De consoles com jogos embutidos a plataformas
-            híbridas, esta linha do tempo acompanha as principais mudanças de
-            hardware, tecnologia e interação que marcaram essa trajetória.
-          </p>
-        </div>
-      </section>
+				<p class="intro-text">
+					Ao longo de quase cinco décadas, a Nintendo transformou
+					a maneira como jogamos. De consoles com jogos embutidos
+					a plataformas híbridas, esta linha do tempo acompanha
+					as principais mudanças de hardware, tecnologia e
+					interação que marcaram essa trajetória.
+				</p>
+			</div>
+		</section>
 
-      <section
-        class="timeline-section"
-        id="timeline"
-        aria-labelledby="timeline-title"
-      >
-        <div class="container">
-          <h2 id="timeline-title" class="sr-only">
-            Linha do tempo dos consoles Nintendo
-          </h2>
+		<section class="timeline-section" id="timeline" aria-labelledby="timeline-title">
+			<div class="container">
+				<h2 id="timeline-title" class="section-title">
+					<span>Linha do tempo dos consoles Nintendo</span>
+				</h2>
 
-          <div
-            class="phases"
-            id="phases"
-            aria-label="Fases da evolução dos consoles Nintendo"
-          ></div>
+				<div class="timeline">
+					<div class="timeline-line" id="timeline-line" aria-hidden="true"></div>
 
-          <div class="timeline">
-            <div
-              class="timeline-line"
-              id="timeline-line"
-              aria-hidden="true"
-            ></div>
+					<div class="timeline-items" id="timeline-items"></div>
+				</div>
+			</div>
+		</section>
+	</main>
 
-            <div class="timeline-items" id="timeline-items"></div>
-          </div>
-        </div>
-      </section>
-    </main>
+	<footer class="footer">
+		<div class="footer-content container">
+			<div class="footer-top">
+				<div class="footer-brand">
+					<p class="footer-title">
+						Evolução dos Consoles
+						<span class="accent">Nintendo</span>
+					</p>
 
-    <footer class="footer">
-      <div class="footer-content container">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <p class="footer-title">
-              Evolução dos Consoles
-              <span class="accent">Nintendo</span>
-            </p>
+					<p class="footer-note">
+						Projeto independente desenvolvido para disciplina
+						"Iteração Humano-Computador e Experiência do Usuário"
+					</p>
+				</div>
 
-            <p class="footer-note">
-              Projeto independente desenvolvido para disciplina "Iteração
-              Humano-Computador e Experiência do Usuário"
-            </p>
-          </div>
+				<div class="footer-info">
+					<p>
+						Informações organizadas a partir de registros públicos
+						sobre os principais consoles e portáteis da Nintendo.
+					</p>
 
-          <div class="footer-info">
-            <p>
-              Informações organizadas a partir de registros públicos sobre os
-              principais consoles e portáteis da Nintendo.
-            </p>
+					<p class="mono">1977 → 2025</p>
+				</div>
+			</div>
 
-            <p class="mono">1977 → 2025</p>
-          </div>
-        </div>
+			<div class="footer-bottom">
+				Feito com HTML, CSS e JavaScript.
+			</div>
+		</div>
+	</footer>
 
-        <div class="footer-bottom">Feito com HTML, CSS e JavaScript.</div>
-      </div>
-    </footer>
-
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-  </body>
-</html>
+	<script src="data.js"></script>
+	<script src="script.js"></script>
+</body>
