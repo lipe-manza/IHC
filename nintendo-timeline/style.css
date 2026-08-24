@@ -14,7 +14,7 @@
 	--font-body: "STIX Two Math", serif;
 	--font-mono: "JetBrains Mono", monospace;
 
-	--font-scale: 1.25;
+	--font-scale: 1.5;
 
 	--container-width: 1200px;
 	--container-padding: 24px;
@@ -70,6 +70,7 @@ svg {
 	width: min(100% - (var(--container-padding) * 2),
 			var(--container-width));
 	margin-inline: auto;
+
 }
 
 
@@ -163,12 +164,14 @@ svg {
 	max-width: 800px;
 
 	margin-inline: auto;
+	margin-top: 56px;
+
 	color: var(--border-strong);
 
 	font-size: calc(17px * var(--font-scale));
 	line-height: 1.65;
 
-	text-align: center;
+	text-align: justify;
 }
 
 
@@ -178,7 +181,7 @@ svg {
 
 .timeline-section {
 	padding:
-		0px var(--section-padding-x) 96px;
+		56px var(--section-padding-x) 96px;
 }
 
 .timeline {
@@ -328,7 +331,7 @@ svg {
 
 .card:hover {
 	box-shadow:
-		0 16px 36px -12px rgb(28 27 25 / 16%);
+		0 16px 36px -12px rgb(28 27 25 / 70%);
 
 	transform: translateY(-3px);
 }
@@ -457,7 +460,7 @@ svg {
 	font-size: calc(14px * var(--font-scale));
 	line-height: 1.65;
 
-	text-align: left;
+	text-align: justify;
 }
 
 
